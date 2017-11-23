@@ -12,6 +12,13 @@ app.get('/index', function (req, res) {
     res.send('Hello World!')
 })
 
+app.post('/create', (req, res) => {
+    const body = req.body
+    console.log(body)
+    if(body){
+        res.send('yes')
+    }
+})
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!')

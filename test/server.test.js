@@ -10,11 +10,15 @@ describe('Routes', () => {
         })
     })
 
-    xit('should pass create', () => {
-        return request(server).get('/create').then((res) => {
+    it('should pass create', () => {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954
+        }
+        return request(server).post('/create').send(book).then((res) => {
             res.status.should.equal(200)
-            res.data.should.not.equal(null)
-            res.data.should.not.equal('object')
+            res.request._data.should.eql(book)
         })
     })
 
