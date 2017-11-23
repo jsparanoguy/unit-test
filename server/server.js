@@ -12,8 +12,12 @@ app.get('/index', function (req, res) {
     res.send('Hello World!')
 })
 
-app.get('/list/', function (req, res) {
-    res.send('Voici vos liste : ')
+app.post('/create', (req, res) => {
+    const body = req.body
+    console.log(body)
+    if(body){
+        res.send('yes')
+    }
 })
 
 app.get('/list/:id', function (req, res) {
