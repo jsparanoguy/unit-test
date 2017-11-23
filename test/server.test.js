@@ -11,14 +11,9 @@ describe('Routes', () => {
     })
 
     it('should pass create', () => {
-        let book = {
-            title: "The Lord of the Rings",
-            author: "J.R.R. Tolkien",
-            year: 1954
-        }
-        return request(server).post('/create').send(book).then((res) => {
+        return request(server).post('/create').then((res) => {
             res.status.should.equal(200)
-            res.request._data.should.eql(book)
+            res.body.should.eql({ok: 'ok'})
         })
     })
 
@@ -31,12 +26,11 @@ describe('Routes', () => {
 
 
     it('should print all list', () => {
-        return request(server).get('/list').then((res) => { // lorsqu'on va sur la page, chargement des listes de l'user
-            var list = [{a:5,b:7},{a:2},{b:5}];  // get la liste pour comparer
+        return request(server).get('/alllist/').then((res) => { // lorsqu'on va sur la page, chargement des listes de l'user
+        var list = [{a:5,b:7},{a:2},{b:5}];  // get la liste pour comparer
         res.status.should.equal(200); // la page dois s'être correctement chargée
-        res.data = "";
-        res.data.should.equal(list); // on compare la liste chargée à celle en donnée brute
-        console.log(res.data);
+        res.body.should.eql(list); // on compare la liste chargée à celle en donnée brute
+    
         })
     })
 

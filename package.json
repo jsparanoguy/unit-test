@@ -4,7 +4,7 @@
   "description": "test",
   "main": "test.js",
   "scripts": {
-    "test": "mocha ./test",
+    "test": "nyc mocha ./test",
     "dev": "nodemon server/server.js"
   },
   "author": "moi",
@@ -21,6 +21,7 @@
     "mocha": "^4.0.1",
     "morgan": "^1.9.0",
     "nodemon": "^1.12.1",
+    "nyc": "^11.3.0",
     "supertest": "^3.0.0"
   }
 }
