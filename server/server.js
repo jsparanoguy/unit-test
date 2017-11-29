@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const ShopingList = require('./model/shopping')
 
 const app = express()
 
@@ -30,8 +31,11 @@ app.get('/alllist', function (req, res) {
 })
 
 
-app.listen(3000, function () {
+const server = app.listen(3007, function () {
     console.log('Example app listening on port 3000!')
 })
 
-module.exports = app
+module.exports = {
+    app,
+    server,
+}
