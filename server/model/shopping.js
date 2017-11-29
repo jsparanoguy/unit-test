@@ -19,6 +19,15 @@ class ShopingList {
         }
         this.list.push(item)
     }
+
+    removeItem(id){
+        const { list } = this
+        this.list = list.filter(item => item.id !== id) 
+    }
+
+    getCart(){
+        return this.list
+    }
 }
 
 module.exports = ShopingList

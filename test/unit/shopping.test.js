@@ -2,7 +2,7 @@ require('mocha')
 require('chai').should()
 const ShopingList = require('../../server/model/shopping')
 
-describe('Create Shopping List', () => {
+describe('Shopping List', () => {
     let cart
     it('should be empty', () => {
         cart = new ShopingList();
@@ -20,10 +20,15 @@ describe('Create Shopping List', () => {
         cart.list.length.should.be.equal(cartLength + 1)
     })
 
-    xit('should remove on item from the shoping cart', () => {
-        const myItems = ShopingList.getCart()
-        cart.removeItem(id)
-        cart.should.be.equal(myItems.length - 1)
+    it('should remove on item from the shoping cart', () => {
+        const myItems = cart.getCart()
+        cart.removeItem(myItems[0].id)
+        cart.list.length.should.be.equal(cart.getCart().length)
+    })
+
+    it('should show the current shoping list', () => {
+        const items = cart.list
+        cart.getCart().should.be.eql(items)
     })
 })
 
