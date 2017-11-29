@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "chai-http": "^3.0.0",
+    "codecov": "^3.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
     "morgan": "^1.9.0",
