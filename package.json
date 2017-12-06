@@ -4,7 +4,7 @@
   "description": "test",
   "main": "test.js",
   "scripts": {
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha ./test -R spec && codecov",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha ./test -R && codecov",
     "dev": "nodemon server/server.js"
   },
   "author": "moi",
@@ -13,8 +13,7 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "express": "^4.16.2",
-    "nodemon": "^1.12.1",
-    "uuid": "^3.1.0"
+    "nodemon": "^1.12.1"
   },
   "devDependencies": {
     "chai-http": "^3.0.0",
