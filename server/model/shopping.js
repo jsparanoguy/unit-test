@@ -1,5 +1,3 @@
-const uuid = require('uuid')
-
 class ShopingList {
     constructor(){
         this.list = null
@@ -21,7 +19,7 @@ class ShopingList {
             name,
             quantity,
             price, 
-            id: uuid.v1()
+            id: this.uuid()
         }
         this.list.push(item)
         return this.list
@@ -44,6 +42,27 @@ class ShopingList {
 
     getCart(){
         return this.list
+    }
+
+    rand(){
+      return Math.floor(Math.random() * 9) + 1    
+    }
+
+    uuid(generate = [], sign = true, called = 1){
+        let i = 0;
+        while(i < 5){
+            generate.push(this.rand())
+            i++
+        }
+        if(sign && called < 3){
+            generate.push('-')
+        }
+
+        if(called === 4){
+            return generate.toString().replace (/,/g, "")
+        }
+
+        return this.uuid(generate, true, called + 1)
     }
 }
 

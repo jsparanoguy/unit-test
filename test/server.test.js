@@ -105,4 +105,9 @@ describe('Shopping List', () => {
         const items = cart.list
         cart.getCart().should.be.eql(items)
     })
+
+    it('should generate an uuid', () => {
+        const id = cart.uuid()
+        id.length.should.equal(22)
+    })
 })
