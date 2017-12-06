@@ -13,25 +13,66 @@ app.get('/index', function (req, res) {
     res.send('Hello World!')
 })
 
+const cart = new ShopingList()
+
 app.post('/create', (req, res) => {
-    const body = req.body
+    res.json({
+        list: cart.getCart(),
+        status: 'initalized'
+    })
+})
 
-    if(!body){
-        res.end(404)
+app.post('/remove', (req, res) => {
+    const { id } = req.body
+    try{
+        cart.removeItem(id)
+        res.json({
+            list: cart.getCart(),
+            status: 'removed'
+        })
+    } catch(e){
+        res.json({
+            error: 'Item not in the list'
+        }).status(404)
     }
-    res.send({ ok: 'ok' })
 })
 
-app.get('/list/:id', function (req, res) {
-    res.send('hey')
+app.get('/list/:id', (req, res) => {
+    const { id } = req.query
+    try{
+        const item = cart.getItemFromList(id)
+        res.json({
+            list: item
+        }).status(200)
+    }catch(e){
+        res.json({
+            error: 'Item not in the list'
+        }).status(404)
+    }
 })
 
-app.get('/alllist', function (req, res) {
-    res.send([{a:5,b:7},{a:2},{b:5}])
+app.post('/add', (req, res) => {
+    cart.addItemToList(req.body)
+    res.json({
+        list: cart.getCart(),
+        status: 'created'
+    }).status(200)
+})
+
+app.get('/alllist', (req, res) => {
+    if(cart.getCart().length < 1){
+        return res.json({
+            error: 'Nothing to show'
+        }).status(404)
+    }
+    return res.json({
+        list: cart.getCart(),
+        status: 'lists'
+    })
 })
 
 
-const server = app.listen(3007, function () {
+const server = app.listen(3007, () => {
     console.log('Example app listening on port 3000!')
 })
 

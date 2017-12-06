@@ -16,44 +16,72 @@ describe('Routes', () => {
     it('should pass create', () => {
         return request(server).post('/create').then((res) => {
             res.status.should.equal(200)
-            res.body.should.eql({ok: 'ok'})
         })
     })
 
-    xit('should pass delete', () => {
-        return request(server).get('/delete/:id').then((res) => {
-            res.status.should.equal(200)
-            res.params.should.equal(res.params.uid)
-        })
+    it('should add one element to the list', () => {
+        return request(server).post('/add')
+            .send({
+                name: 'toto',
+                quantity: 1,
+                price: 10
+            })
+            .then((res) => {
+                res.status.should.equal(200)
+            })
     })
-
 
     it('should print all list', () => {
         return request(server).get('/alllist/').then((res) => { // lorsqu'on va sur la page, chargement des listes de l'user
-            var list = [{a:5,b:7},{a:2},{b:5}];  // get la liste pour comparer
-            res.status.should.equal(200); // la page dois s'être correctement chargée
-            res.body.should.eql(list); // on compare la liste chargée à celle en donnée brute
-    
+            if(res.body.list.length < 1){
+                res.status.should.equal(404)
+            }
+            res.body.list[0].should.have.keys('id', 'name', 'price', 'quantity')
         })
     })
 
     it('should print one list', () => {
-                return request(server).get('/list/:id').then((res) => {
-                res.status.should.equal(200)
-            })
+        return request(server).get(`/list/${1}`).then((res) => {
+            res.status.should.equal(200)
         })
+    })
+
+    it('should pass delete', () => {
+        return request(server).post('/remove').send({
+            id: 1
+        })
+        .then((res) => {
+            res.status.should.equal(200)
+        })
+    })
+
+    it('should not delete if no match in the list and trow an error', () => {
+        return request(server).post('/remove').send({
+            id: 5
+        })
+        .then((res) => {
+            res.body.should.eql({error: 'Item not in the list'})
+        })
+    })
+
+    it('Should return an error if no match to find item in the list', () => {
+        return request(server).get(`/list/${5}`).then((res) => {
+            res.body.should.eql({error: 'Item not in the list'})
+        })
+    })
         
-    after(function (done) {
-        server.close();
-        done();
+    after(() => {
+        setTimeout(() => {
+            process.kill()
+        }, 7000)
     });
 })
 
 describe('Shopping List', () => {
     let cart
-    it('should be empty', () => {
+    it('should have 1 item', () => {
         cart = new ShopingList();
-        cart.list.length.should.be.equal(0)
+        cart.list.length.should.be.equal(1)
     });
 
     it('should add one item to the shopping cart', () => {
