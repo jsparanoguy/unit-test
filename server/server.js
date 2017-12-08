@@ -20,16 +20,17 @@ const list = new List()
 app.post('/create', (req, res) => {
     res.json({
         list: list.initList(),
+        list: list.addShopingList(),
         status: 'initalized'
     })
 })
 
 app.post('/remove', (req, res) => {
-    const { id } = req.body
+    const { key } = req.body
     try{
-        cart.removeItem(id)
+        list : list.removeShopintList(key),
         res.json({
-            list: cart.getCart(),
+            list: list.showAllShopingLists(),
             status: 'removed'
         })
     } catch(e){
@@ -61,6 +62,8 @@ app.post('/add', (req, res) => {
     }).status(200)
 })
 
+
+
 app.get('/alllist', (req, res) => {
     if(cart.getCart().length < 1){
         return res.json({
@@ -68,14 +71,14 @@ app.get('/alllist', (req, res) => {
         }).status(404)
     }
     return res.json({
-        list: cart.getCart(),
+        list: list.showAllShopingLists(),
         status: 'lists'
     })
 })
 
 
 const server = app.listen(3007, () => {
-    console.log('Example app listening on port 3000!')
+    console.log('Example app listening on port 3007!')
 })
 
 module.exports = {

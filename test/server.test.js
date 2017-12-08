@@ -16,7 +16,7 @@ describe('Routes', () => {
 
     it('should pass create', () => {
         return request(server).post('/create').then((res) => {
-            console.log(res.body.list)
+            
             res.status.should.equal(200)
         })
     })
@@ -38,7 +38,9 @@ describe('Routes', () => {
             if(res.body.list.length < 1){
                 res.status.should.equal(404)
             }
-            res.body.list[0].should.have.keys('id', 'name', 'price', 'quantity')
+            res.body.list[0].forEach(element => {
+                element.should.have.keys('id', 'name', 'price', 'quantity')
+            });
         })
     })
 
@@ -81,9 +83,9 @@ describe('Routes', () => {
 
 describe('Shopping List', () => {
     let cart
-    it('should have 1 item', () => {
+    it('should have 2 item', () => {
         cart = new ShopingList();
-        cart.list.length.should.be.equal(1)
+        cart.list.length.should.be.equal(2)
     });
 
     it('should add one item to the shopping cart', () => {

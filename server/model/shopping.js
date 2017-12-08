@@ -10,6 +10,12 @@ class ShopingList {
             quantity: 1,
             price: 15,
             id: 1,
+        },
+        {
+            name: 'tata',
+            quantity: 1,
+            price: 15,
+            id: 10,
         }]
         return this.list
     }
