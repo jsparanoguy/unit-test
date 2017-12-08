@@ -4,6 +4,7 @@ const server = require('../server/server').server
 const app = require('../server/server').app
 require('chai').should()
 const ShopingList = require('../server/model/shopping')
+const List = require('../server/model/list')
 
 describe('Routes', () => {
     
@@ -15,6 +16,7 @@ describe('Routes', () => {
 
     it('should pass create', () => {
         return request(server).post('/create').then((res) => {
+            console.log(res.body.list)
             res.status.should.equal(200)
         })
     })

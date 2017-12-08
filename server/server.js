@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const ShopingList = require('./model/shopping')
+const List = require('./model/list')
 
 const app = express()
 
@@ -14,10 +15,11 @@ app.get('/index', function (req, res) {
 })
 
 const cart = new ShopingList()
+const list = new List()
 
 app.post('/create', (req, res) => {
     res.json({
-        list: cart.getCart(),
+        list: list.initList(),
         status: 'initalized'
     })
 })
