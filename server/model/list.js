@@ -17,11 +17,20 @@ class List extends shopingList {
     }
 
     addShopingList(){
-        const keys = Object.keys(this.allList)
-        const last = this.allList[this.allList.length - 1] + 1;
-        const add = Object.assign({ last : this.getCart }, this.allList)
-
-        this.allList = add
+        const keys = Object.keys(this.allList) 
+        const last = this.allList.length
+      //  console.log('last', last)
+        //const add = Object.assign({ list : [{name: 'lol', quantity: '3', price: '9001'}] }, this.list)
+        // const final = shopList.concat(add)
+        const add =[]
+        add.push(this.allList)
+        add.push( {1 : [{name: 'lol', quantity: '3', price: '9001'}]})
+        //const shopList = new List();
+        //const add = {name: 'lol', quantity: '2', price: '15'}           
+        //this.list = this.list.concat(add)
+        
+      this.allList = add
+     
         return this.allList
     }
 
@@ -30,6 +39,7 @@ class List extends shopingList {
         const check = keys.includes(key)
         if(check){
             delete this.allList[key]
+           
         } else {
             throw new Error('This Key doesnt exists')
         }

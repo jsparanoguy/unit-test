@@ -12,8 +12,8 @@ class ShopingList {
             id: 1,
         },
         {
-            name: 'tata',
-            quantity: 1,
+            name: 'toto',
+            quantity: 2,
             price: 15,
             id: 10,
         }]

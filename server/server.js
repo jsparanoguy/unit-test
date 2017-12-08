@@ -20,7 +20,7 @@ const list = new List()
 app.post('/create', (req, res) => {
     res.json({
         list: list.initList(),
-        list: list.addShopingList(),
+       // list: list.addShopingList(),
         status: 'initalized'
     })
 })

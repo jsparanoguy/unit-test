@@ -115,3 +115,42 @@ describe('Shopping List', () => {
         id.length.should.equal(22)
     })
 })
+
+
+describe('List', () => {
+
+   var allList = new List();
+    it('should have 2 shopping list', () => {
+        
+        
+        allList.list.length.should.be.equal(2)
+        });
+
+        it('should add one list to the parent list', () => {
+           // console.log(allList)
+           let listLength = allList.list.length-1 // calcul de la taille de la liste original(il y a 1 seul liste)
+          //  console.log(listLength)
+          allList.addShopingList() // grâce a cette fonction, la liste devient addList qui contient l'ancienne liste + 1 liste en +
+          
+            console.log('length ancien', listLength) 
+            console.log('length nouveau',allList.allList.length)
+            console.log(allList.allList) // la liste contient bien 2 objet
+            allList.allList.length.should.be.equal(listLength + 1)
+        })
+
+        it('should remove list from the parent list', () => {
+             // console.log(allList)
+           let listLength = allList.list.length-1 
+           //  console.log(listLength)
+           const keys = Object.keys(allList.allList)
+           console.log('keys', keys[0])
+          allList.removeShopintList(keys[0])// bug ici, le delete se fais mais laisse un empty item qui fausse le count
+
+           console.log(allList)
+      
+            allList.allList.length.should.be.equal(listLength - 1)
+        })
+ 
+
+  
+})
