@@ -126,6 +126,8 @@ describe('List', () => {
         allList.list.length.should.be.equal(2)
         });
 
+       
+
         it('should add one list to the parent list', () => {
            // console.log(allList)
            let listLength = allList.list.length-1 // calcul de la taille de la liste original(il y a 1 seul liste)
@@ -150,7 +152,15 @@ describe('List', () => {
       
             allList.allList.length.should.be.equal(listLength - 1)
         })
+
+        it('should show all shoping list', () => {
+            
+            const listes = allList.showAllShopingLists()
+             allList.showAllShopingLists().should.be.eql(listes)
+         })
  
+
+       
 
   
 })
