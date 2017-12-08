@@ -41,9 +41,9 @@ app.post('/remove', (req, res) => {
 })
 
 app.get('/list/:id', (req, res) => {
-    const { id } = req.query
+    const { key } = req.query
     try{
-        const item = cart.getItemFromList(id)
+        const item = list.showSingleShopingList(key)
         res.json({
             list: item
         }).status(200)
