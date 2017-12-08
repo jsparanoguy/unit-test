@@ -16,27 +16,22 @@ class List extends shopingList {
         return this.allList
     }
 
-    addShopingList(){
-        const keys = Object.keys(this.allList) 
-        const last = this.allList.length
-      //  console.log('last', last)
-        //const add = Object.assign({ list : [{name: 'lol', quantity: '3', price: '9001'}] }, this.list)
-        // const final = shopList.concat(add)
-        const add =[]
-        add.push(this.allList)
-        add.push( {1 : [{name: 'lol', quantity: '3', price: '9001'}]})
-        //const shopList = new List();
-        //const add = {name: 'lol', quantity: '2', price: '15'}           
-        //this.list = this.list.concat(add)
-        
-      this.allList = add
-     
+    createNewShopingList(){
+        const keys = Object.keys(this.allList)
+        const last = parseInt(keys[keys.length - 1]) + 1
+        const newList = Object.assign({[last]: this.createShopingList()}, this.allList)
+
+        this.allList = newList
         return this.allList
+    }
+
+    addShopingList(key, params){
+        return this.allList[key].concat(this.addItemToList(params))
     }
 
     removeShopintList(key){
         const keys = Object.keys(this.allList)
-        const check = keys.includes(key)
+        const check = keys.find(k=> k == key)
         if(check){
             delete this.allList[key]
            
@@ -58,7 +53,7 @@ class List extends shopingList {
 
     showSingleShopingList(key){
         const keys = Object.keys(this.allList)
-        const check = keys.includes(key)
+        const check = keys.find(k=> k == key)
         if(check){
             return this.allList[key]
         } else {

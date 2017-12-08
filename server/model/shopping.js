@@ -5,18 +5,7 @@ class ShopingList {
     }
 
     createShopingList(){
-        this.list = [{
-            name: 'tata',
-            quantity: 1,
-            price: 15,
-            id: 1,
-        },
-        {
-            name: 'toto',
-            quantity: 2,
-            price: 15,
-            id: 10,
-        }]
+        this.list = []
         return this.list
     }
 

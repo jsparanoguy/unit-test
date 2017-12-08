@@ -55,9 +55,9 @@ app.get('/list/:id', (req, res) => {
 })
 
 app.post('/add', (req, res) => {
-    cart.addItemToList(req.body)
+    list.addShopingList(req.body.key, req.body.params)
     res.json({
-        list: cart.getCart(),
+        list: list.showSingleShopingList(req.body.key),
         status: 'created'
     }).status(200)
 })
@@ -65,7 +65,7 @@ app.post('/add', (req, res) => {
 
 
 app.get('/alllist', (req, res) => {
-    if(cart.getCart().length < 1){
+    if(list.showAllShopingLists().length < 1){
         return res.json({
             error: 'Nothing to show'
         }).status(404)
@@ -73,6 +73,13 @@ app.get('/alllist', (req, res) => {
     return res.json({
         list: list.showAllShopingLists(),
         status: 'lists'
+    })
+})
+
+app.get('/newList', (req, res) => {
+    list.createNewShopingList()
+    res.json({
+        list: list.showAllShopingLists()
     })
 })
 

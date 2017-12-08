@@ -22,12 +22,13 @@ describe('Routes', () => {
     })
 
     it('should add one element to the list', () => {
+        const params = {
+            name: 'Pull',
+            quantity: 1,
+            price: 10
+        }
         return request(server).post('/add')
-            .send({
-                name: 'toto',
-                quantity: 1,
-                price: 10
-            })
+            .send({key: 0, params})
             .then((res) => {
                 res.status.should.equal(200)
             })
@@ -41,6 +42,12 @@ describe('Routes', () => {
             res.body.list[0].forEach(element => {
                 element.should.have.keys('id', 'name', 'price', 'quantity')
             });
+        })
+    })
+
+    it('should add a new list to the shopping list', () => {
+        return request(server).get('/newlist').then((res) => { // lorsqu'on va sur la page, chargement des listes de l'user
+            res.status.should.eql(200)
         })
     })
 
@@ -83,9 +90,9 @@ describe('Routes', () => {
 
 describe('Shopping List', () => {
     let cart
-    it('should have 2 item', () => {
+    it('should have 0 item', () => {
         cart = new ShopingList();
-        cart.list.length.should.be.equal(2)
+        cart.list.length.should.be.equal(0)
     });
 
     it('should add one item to the shopping cart', () => {
@@ -119,38 +126,28 @@ describe('Shopping List', () => {
 
 describe('List', () => {
 
-   var allList = new List();
-    it('should have 2 shopping list', () => {
-        
-        
-        allList.list.length.should.be.equal(2)
+        const allList = new List();
+        it('should have 0 shopping list', () => {
+            allList.list.length.should.be.equal(0)
         });
 
-       
-
         it('should add one list to the parent list', () => {
-           // console.log(allList)
-           let listLength = allList.list.length-1 // calcul de la taille de la liste original(il y a 1 seul liste)
-          //  console.log(listLength)
-          allList.addShopingList() // grâce a cette fonction, la liste devient addList qui contient l'ancienne liste + 1 liste en +
-          
-            console.log('length ancien', listLength) 
-            console.log('length nouveau',allList.allList.length)
-            console.log(allList.allList) // la liste contient bien 2 objet
-            allList.allList.length.should.be.equal(listLength + 1)
+            let listLength = allList.showSingleShopingList(0).length // calcul de la taille de la liste original(il y a 1 seul liste)
+            const params = {
+                name: 'Pull',
+                quantity: 3,
+                price: 16
+            }
+            allList.addShopingList(0, params) 
+            const lists = allList.showSingleShopingList(0)
+            lists.length.should.be.equal(listLength + 1)
         })
 
         it('should remove list from the parent list', () => {
-             // console.log(allList)
-           let listLength = allList.list.length-1 
-           //  console.log(listLength)
-           const keys = Object.keys(allList.allList)
-           console.log('keys', keys[0])
-          allList.removeShopintList(keys[0])// bug ici, le delete se fais mais laisse un empty item qui fausse le count
-
-           console.log(allList)
-      
-            allList.allList.length.should.be.equal(listLength - 1)
+            let listLength = allList.showSingleShopingList(0).length
+            const keys = Object.keys(allList.showAllShopingLists())
+            allList.removeShopintList(keys[0])// bug ici, le delete se fais mais laisse un empty item qui fausse le count
+            allList.showAllShopingLists().length.should.be.equal(listLength - 1)
         })
 
         it('should show all shoping list', () => {
